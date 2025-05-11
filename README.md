@@ -10,7 +10,17 @@ A powerful keyboard shortcut utility that allows you to quickly open application
 - **Customizable**: Easy to configure through `user_settings.json`
 - **Mouse Position Control**: Optional extension for mouse position control
 
-## Installation
+
+
+
+## easy use
+```bash
+git clone https://github.com/shmulisarmy/instant-open.git
+mv instant-open ~/desktop
+```
+
+
+## Compile The Program Yourself
 
 1. Ensure you have Go installed on your system
 2. Clone this repository
