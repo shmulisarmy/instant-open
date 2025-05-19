@@ -16,9 +16,17 @@ func main() {
 			if is_pressed[letter] {
 				return
 			}
+
+			// could possible cause a deadlock if there is a another func that has these 2 mutexes in reverse order
+			last_letter_pressed_mutex.Lock()
+			defer last_letter_pressed_mutex.Unlock()
+
 			last_letter_pressed_history = append(last_letter_pressed_history, e)
 			last_pressed[letter] = e.When
 			fmt.Printf("%v has been pressed\n", letter)
+			key_press_history_mutex.Lock()
+			defer key_press_history_mutex.Unlock()
+
 			key_press_history = append(key_press_history, e)
 			is_pressed[letter] = true
 			go execute_first_found_sequence(e)
@@ -40,12 +48,12 @@ var sequences map[string]func() = map[string]func(){}
 
 func setup_sequences_from_maps() {
 	for letter := range site_map {
-		sequences["os"+letter] = func() {
+		sequences["z"+letter] = func() {
 			open_site(site_map[letter])
 		}
 	}
 	for letter := range application_map {
-		sequences["oa"+letter] = func() {
+		sequences["x"+letter] = func() {
 			open_app(application_map[letter])
 		}
 	}
@@ -97,6 +105,9 @@ func are_all_pressed(sequence string) bool {
 var last_letter_pressed_history []hook.Event
 
 func in_typing_mode(look_back int) bool {
+	last_letter_pressed_mutex.Lock()
+	defer last_letter_pressed_mutex.Unlock()
+
 	if len(last_letter_pressed_history) < look_back+1 {
 		return false
 	}
@@ -132,6 +143,9 @@ func undo_chars_generated_from_sequence(sequence string) {
 }
 
 func all_recently_pressed_and_currently_down(sequence string) bool {
+	is_pressed_mutex.Lock()
+	defer is_pressed_mutex.Unlock()
+
 	for _, letter := range sequence {
 		if !is_pressed[string(letter)] {
 			return false

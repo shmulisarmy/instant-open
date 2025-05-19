@@ -12,16 +12,6 @@ A powerful keyboard shortcut utility that allows you to quickly open application
 
 ## Installation
 
-### Quick Start
-```bash
-git clone https://github.com/shmulisarmy/instant-open.git
-mv instant-open ~/desktop
-```
-Simply launch the `instant-open` executable from your desktop to start using the tool. 
-(For now, you'll need to launch it manually when you start your computer.) automatic run on startup coming soon...
-
-### Compile The Program Yourself
-
 1. Ensure you have Go installed on your system
 2. Clone this repository
 3. Run `go mod download` to install dependencies
@@ -51,7 +41,7 @@ Configure website shortcuts in the `site_map` section:
 
 ```json
 "site_map": {
-    "g": "github.com/", //hold down o+s+g to open github.com site
+    "g": "github.com/", //hold down o+s+t to open github.com site
     "y": "youtube.com", //same idea
     "t": "typingclub.com"
     // Add more websites as needed
@@ -61,28 +51,20 @@ Configure website shortcuts in the `site_map` section:
 ### Additional Settings
 
 - `typing_speed`: Set to "fast" or "slow" to adjust the typing detection sensitivity
-  - "fast": More lenient detection, better for quick typists
-  - "slow": Stricter detection, better for slower typists
 - `extensions`: Enable additional features like "mtl" (move to top-left)
 
 ## Usage
 
 ### Application Shortcuts
-- Hold down `o`, `a`, and the configured letter simultaneously to open an application
-- Example: Hold `o`+`a`+`t` together to open Trello
+- Press `oa` followed by the configured letter to open an application
+- Example: `oat` opens Windsurf
 
 ### Website Shortcuts
-- Hold down `o`, `s`, and the configured letter simultaneously to open a website
-- Example: Hold `o`+`s`+`g` together to open GitHub
+- Press `os` followed by the configured letter to open a website
+- Example: `osg` opens GitHub
 
 ### Mouse Control
 - If enabled, use the `mtl` sequence to move the mouse to the top-left of the current window
-
-### Typing Mode Detection
-The tool automatically detects when you're typing normally and won't trigger shortcuts during typing. This is based on:
-- The speed between key presses
-- The `typing_speed` setting in your configuration
-- A lookback window of the last few keystrokes
 
 ## How It Works
 
@@ -102,4 +84,4 @@ Feel free to submit issues and enhancement requests!
 
 ## License
 
-This project is open source and available under the MIT License.
+This project is open source and available under the MIT License. 

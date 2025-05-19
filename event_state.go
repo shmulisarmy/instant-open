@@ -1,6 +1,7 @@
 package main
 
 import (
+	"sync"
 	"time"
 
 	hook "github.com/robotn/gohook"
@@ -85,5 +86,8 @@ var is_pressed = map[string]bool{
 	"9": false,
 	"0": false,
 }
-
 var key_press_history []hook.Event
+
+var is_pressed_mutex = sync.Mutex{}
+var last_letter_pressed_mutex = sync.Mutex{}
+var key_press_history_mutex = sync.Mutex{}
